@@ -7,8 +7,8 @@
 1a. Use rails to generate a new project
 
 ```bash
-rails new --database=postgresql --skip-test-unit pets-rails-simple-manual
-cd pets-rails-simple-manual
+rails new --database=postgresql --skip-test-unit rails-pets
+cd rails-pets
 rake db:create
 ```
 
