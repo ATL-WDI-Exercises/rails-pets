@@ -2,6 +2,18 @@
 
 ## Steps to reproduce
 
+### Step 0 - Install Rails
+
+```bash
+rbenv versions  # check to see if you are on a recent version of Ruby
+                # * 2.2.4 (set by /Users/drmikeh/.rbenv/version)
+
+which gem       # check your path for the correct gem installer
+                # /Users/drmikeh/.rbenv/shims/gem
+
+gem install rails  # install the latest stable version of Rails
+```
+
 ### Step 1 - Generate The Project
 
 1a. Use rails to generate a new project
