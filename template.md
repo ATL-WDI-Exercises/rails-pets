@@ -1,24 +1,6 @@
-<!--
-This file is auto-generated from a 'template.md'
-file using the 'md-process' script.
-Therefore *DO NOT* edit this file directly!
-Instead edit 'template.md' and then run 'md-process'.
--->
-
 # Pets CRUD App in Rails
 
-## Table of Contents
-
-* [Steps to reproduce](#steps-to-reproduce)
-  * [Step 0 - Install Rails](#step-0---install-rails)
-  * [Step 1 - Generate The Project](#step-1---generate-the-project)
-  * [Step 2 - Add Gems](#step-2---add-gems)
-  * [Step 3 - Create the `Owner` Model Class](#step-3---create-the-`owner`-model-class)
-  * [Step 4 - Create a RESTful Controller and the RESTful Routes for Owners](#step-4---create-a-restful-controller-and-the-restful-routes-for-owners)
-  * [Step 5 - Create the `Pet` Model Class](#step-5---create-the-`pet`-model-class)
-  * [Step 6 - Create a RESTful Controller and the RESTful Routes for Pets](#step-6---create-a-restful-controller-and-the-restful-routes-for-pets)
-  * [Step 7 - Add a NavBar and Some Style](#step-7---add-a-navbar-and-some-style)
-* [Summary](#summary)
+{{ TOC }}
 
 ## Steps to reproduce
 
@@ -243,68 +225,7 @@ edit_owner GET    /owners/:id/edit(.:format) owners#edit
 4d. Edit the file `app/controllers/owners_controller.rb` and set the content to the following:
 
 ```ruby
-class OwnersController < ApplicationController
-  before_action :set_owner, only: [:show, :edit, :update, :destroy]
-
-  def index
-    @owners = Owner.all
-  end
-
-  def show
-  end
-
-  def new
-    @owner = Owner.new
-  end
-
-  def edit
-  end
-
-  def create
-    @owner = Owner.new(owner_params)
-    respond_to do |format|
-      if @owner.save
-        format.html { redirect_to @owner, notice: 'Owner was successfully created.' }
-        format.json { render :show, status: :created, location: @owner }
-      else
-        format.html { render :new }
-        format.json { render json: @owner.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @owner.update(owner_params)
-        format.html { redirect_to @owner, notice: 'Owner was successfully updated.' }
-        format.json { render :show, status: :ok, location: @owner }
-      else
-        format.html { render :edit }
-        format.json { render json: @owner.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def destroy
-    @owner.destroy
-    respond_to do |format|
-      format.html { redirect_to owners_url, notice: 'Owner was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-
-  # Use callbacks to share common setup or constraints.
-  def set_owner
-    @owner = Owner.find(params[:id])
-  end
-
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def owner_params
-    params.require(:owner).permit(:first_name, :last_name, :phone, :email)
-  end
-end
+{{ rails-pets/app/controllers/owners_controller.rb }}
 ```
 
 > Now let's add some content to the views:
@@ -312,68 +233,13 @@ end
 4e. Edit `app/views/owners/index.html.erb` and set the content to the following:
 
 ```html
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Owners</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Phone</th>
-      <th>Email</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @owners.each do |owner| %>
-      <tr>
-        <td><%= owner.first_name %></td>
-        <td><%= owner.last_name %></td>
-        <td><%= owner.phone %></td>
-        <td><%= owner.email %></td>
-        <td><%= link_to 'Show', owner %></td>
-        <td><%= link_to 'Edit', edit_owner_path(owner) %></td>
-        <td><%= link_to 'Destroy', owner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Owner', new_owner_path %>
+{{ rails-pets/app/views/owners/index.html.erb }}
 ```
 
 4f. Edit the file `app/views/owners/show.html.erb` and set the content to the following:
 
 ```html
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @owner.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @owner.last_name %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @owner.phone %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @owner.email %>
-</p>
-
-<%= link_to 'Edit', edit_owner_path(@owner) %> |
-<%= link_to 'Back', owners_path %>
+{{ rails-pets/app/views/owners/show.html.erb }}
 ```
 
 4g. Create the file `app/views/owners/_form.html.erb` and set the content to the following:
@@ -383,39 +249,7 @@ touch app/views/owners/_form.html.erb
 ```
 
 ```html
-<%= form_for(@owner) do |f| %>
-  <% if @owner.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@owner.errors.count, "error") %> prohibited this owner from being saved:</h2>
-
-      <ul>
-      <% @owner.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :phone %><br>
-    <%= f.text_field :phone %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+{{ rails-pets/app/views/owners/_form.html.erb }}
 ```
 
 This file is a _partial_ that will be used in 2 of our views, the `new` and the `edit` views.
@@ -425,22 +259,13 @@ This file is a _partial_ that will be used in 2 of our views, the `new` and the 
 4h. Edit `app/views/owners/new.html.erb` and set the content to the following:
 
 ```html
-<h1>New Owner</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', owners_path %>
+{{ rails-pets/app/views/owners/new.html.erb }}
 ```
 
 4i. Edit `app/views/owners/edit.html.erb` and set the content to the following:
 
 ```html
-<h1>Editing Owner</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @owner %> |
-<%= link_to 'Back', owners_path %>
+{{ rails-pets/app/views/owners/edit.html.erb }}
 ```
 
 4j. Test it all out.
@@ -588,68 +413,7 @@ edit_owner GET    /owners/:id/edit(.:format) owners#edit
 6d. Edit the file `app/controllers/pets_controller.rb` and set the content to the following:
 
 ```ruby
-class PetsController < ApplicationController
-  before_action :set_pet, only: [:show, :edit, :update, :destroy]
-
-  def index
-    @pets = Pet.all
-  end
-
-  def show
-  end
-
-  def new
-    @pet = Pet.new
-  end
-
-  def edit
-  end
-
-  def create
-    @pet = Pet.new(pet_params)
-    respond_to do |format|
-      if @pet.save
-        format.html { redirect_to @pet, notice: 'Pet was successfully created.' }
-        format.json { render :show, status: :created, location: @pet }
-      else
-        format.html { render :new }
-        format.json { render json: @pet.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @pet.update(pet_params)
-        format.html { redirect_to @pet, notice: 'Pet was successfully updated.' }
-        format.json { render :show, status: :ok, location: @pet }
-      else
-        format.html { render :edit }
-        format.json { render json: @pet.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def destroy
-    @pet.destroy
-    respond_to do |format|
-      format.html { redirect_to pets_url, notice: 'Pet was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-
-  # Use callbacks to share common setup or constraints.
-  def set_pet
-    @pet = Pet.find(params[:id])
-  end
-
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def pet_params
-    params.require(:pet).permit(:name, :age, :owner_id)
-  end
-end
+{{ rails-pets/app/controllers/pets_controller.rb }}
 ```
 
 > Now let's add some content to the views:
@@ -657,61 +421,13 @@ end
 6e. Edit `app/views/pets/index.html.erb` and set the content to the following:
 
 ```html
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Pets</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Age</th>
-      <th>Owner</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @pets.each do |pet| %>
-      <tr>
-        <td><%= pet.name %></td>
-        <td><%= pet.age %></td>
-        <td><%= pet.owner.full_name %></td>
-        <td><%= link_to 'Show', pet %></td>
-        <td><%= link_to 'Edit', edit_pet_path(pet) %></td>
-        <td><%= link_to 'Destroy', pet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Pet', new_pet_path %>
+{{ rails-pets/app/views/pets/index.html.erb }}
 ```
 
 6f. Edit the file `views/pets/show.html.erb` and set the content to the following:
 
 ```html
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @pet.name %>
-</p>
-
-<p>
-  <strong>Age:</strong>
-  <%= @pet.age %>
-</p>
-
-<p>
-  <strong>Owner:</strong>
-  <%= @pet.owner.full_name %>
-</p>
-
-<%= link_to 'Edit', edit_pet_path(@pet) %> |
-<%= link_to 'Back', pets_path %>
+{{ rails-pets/app/views/pets/show.html.erb }}
 ```
 
 6g. Create the file `app/views/pets/_form.html.erb` and set the content to the following:
@@ -721,56 +437,19 @@ touch app/views/pets/_form.html.erb
 ```
 
 ```html
-<%= form_for(@pet) do |f| %>
-  <% if @pet.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@pet.errors.count, "error") %> prohibited this pet from being saved:</h2>
-
-      <ul>
-      <% @pet.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :age %><br>
-    <%= f.number_field :age %>
-  </div>
-  <div class="field">
-    <%= f.label :owner %><br>
-    <%= f.collection_select(:owner_id, Owner.all, :id, :full_name) %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+{{ rails-pets/app/views/pets/_form.html.erb }}
 ```
 
 6h. Edit `app/views/pets/new.html.erb` and set the content to the following:
 
 ```html
-<h1>New Pet</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', pets_path %>
+{{ rails-pets/app/views/pets/new.html.erb }}
 ```
 
 6i. Edit `app/views/pets/edit.html.erb` and set the content to the following:
 
 ```html
-<h1>Editing Pet</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @pet %> |
-<%= link_to 'Back', pets_path %>
+{{ rails-pets/app/views/pets/edit.html.erb }}
 ```
 
 6j. Test it all out.
