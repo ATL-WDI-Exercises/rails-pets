@@ -799,8 +799,8 @@ Edit the file `app/views/layouts/application.html.erb` and set the `body` to the
   <body>
     <nav>
       <ul>
-        <li><a href="/owners">Owners</a></li> |
-        <li><a href="/pets">Pets</a></li>
+        <li><%= link_to 'Owners', owners_path %></li>
+        <li><%= link_to 'Pets', pets_path %></li>
       </ul>
     </nav>
     <%= yield %>
@@ -816,6 +816,21 @@ Edit the file `app/assets/stylesheets/application.css` and add the following at 
   background-color: #def;
   margin-left: 60px;
  }
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline;
+}
+
+nav a {
+  text-decoration: none;
+  font-size: 1.4em;
+}
 ```
 
 7c. Save your work:
