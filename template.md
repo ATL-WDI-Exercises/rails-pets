@@ -107,7 +107,7 @@ Since this is the first time we have needed a migration, this command created th
 3b. Edit the file `app/models/owner.rb` and set the content to the following:
 
 ```ruby
-class Owner < ActiveRecord::Base
+class Owner < ApplicationRecord
   validates :first_name, :last_name, :email, presence: true
 
   def full_name
@@ -327,7 +327,7 @@ Also inspect the `app/models/pet.rb` file and notice that the generated model cl
 5c. Edit the file `app/models/owner.rb` and add as `has_many` association to the Pet model:
 
 ```ruby
-class Owner < ActiveRecord::Base
+class Owner < ApplicationRecord
   has_many :pets
 ```
 
