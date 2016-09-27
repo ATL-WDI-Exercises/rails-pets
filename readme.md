@@ -744,7 +744,7 @@ touch app/views/pets/_form.html.erb
   </div>
   <div class="field">
     <%= f.label :owner %><br>
-    <%= f.collection_select(:owner_id, Owner.all, :id, :full_name) %>
+    <%= f.collection_select(:owner_id, Owner.order(:first_name, :last_name), :id, :full_name) %>
   </div>
   <div class="actions">
     <%= f.submit %>
